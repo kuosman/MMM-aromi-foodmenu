@@ -1,0 +1,11 @@
+div.aromi-foodmenu {
+    div.menu {
+        padding-bottom: 16px;
+    }
+
+    div.description {
+        &.vegan {
+            padding-bottom: 8px;
+        }
+    }
+}

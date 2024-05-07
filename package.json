@@ -1,0 +1,28 @@
+{
+    "name": "Magic-Mirror-Module-Aromi-Foodmenu",
+    "version": "1.0.1",
+    "description": "This module for the Magic Mirror allows you to show Ruuvi sensors from ruuvi gateway api.",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/kuosman/MMM-aromi-foodmenu"
+    },
+    "keywords": [
+        "magic mirror",
+        "smart mirror",
+        "module",
+        "remote control",
+        "control"
+    ],
+    "author": "Marko Kuosmanen",
+    "contributors": "git+https://github.com/kuosman/MMM-aromi-foodmenu/graphs/contributors",
+    "license": "MIT",
+    "bugs": {
+        "url": "git+https://github.com/kuosman/MMM-aromi-foodmenu/issues"
+    },
+    "homepage": "git+https://github.com/kuosman/MMM-aromi-foodmenu#readme",
+    "dependencies": {
+        "fast-xml-parser": "^4.3.6",
+        "moment": "latest",
+        "request": "latest"
+    }
+}
