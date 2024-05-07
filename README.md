@@ -1,4 +1,4 @@
-# Module for [MagicMirror](https://magicmirror.builders/): Ruuvi api sensors
+# Module for [MagicMirror](https://magicmirror.builders/): Aromi foodmenu
 
 The `MMM-aromi-foodmenu` module fetches Ruuvi sensors data from User API (https://docs.ruuvi.com/communication/cloud/user-api).
 
