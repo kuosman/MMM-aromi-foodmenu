@@ -62,18 +62,25 @@ module.exports = NodeHelper.create({
 });
 
 const parseMenuItemsFromXML = (feedXML) => {
-	const parser = new XMLParser();
+    const parser = new XMLParser();
 
-	// &nbsp; caused parse error. &amp;nbsp; encodes right in resulting html
-	feedXML = feedXML.replaceAll("&nbsp;", "&amp;nbsp;");
-	feedXML = feedXML.replaceAll("Kasvislounas:", "");
-	feedXML = feedXML.replaceAll("Lounas:", "");
+    // &nbsp; caused parse error. &amp;nbsp; encodes right in resulting html
+    feedXML = feedXML.replaceAll('&nbsp;', '&amp;nbsp;');
 
-	const jObj = parser.parse(feedXML);
-	const parsedNewsItems = Array.from(jObj.rss.channel.item).map((itemNode) => ({
-		title: itemNode.title || "",
-		description: itemNode.description.split("<br><br>") || []
-	}));
+    // Remove lounas texts
+    feedXML = feedXML.replaceAll('Kasvislounas:', '');
+    feedXML = feedXML.replaceAll('Lounas:', '');
 
-	return parsedNewsItems;
+    // Remove parentheses and remove text between parentheses
+    feedXML = feedXML.replace(/\s*\(.*?\)\s*/g, '');
+
+    const jObj = parser.parse(feedXML);
+    const parsedNewsItems = Array.from(jObj.rss.channel.item).map(
+        (itemNode) => ({
+            title: itemNode.title || '',
+            description: itemNode.description.split('<br><br>') || [],
+        })
+    );
+
+    return parsedNewsItems;
 };
