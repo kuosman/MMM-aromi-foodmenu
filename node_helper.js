@@ -46,20 +46,33 @@ module.exports = NodeHelper.create({
 			function (error, response) {
 				if (!error && response.statusCode === 200) {
 					const menuXML = response.body;
-					const parsedMenuItems = parseMenuItemsFromXML(menuXML);
+					const parsedMenuItems = ;
 
 					self.sendSocketNotification("DATA_RESPONSE", {
-						data: parsedMenuItems
+						data: hasMenuItems(menuXML) ? parseMenuItemsFromXML(menuXML) : [],
+						hasMenuItems: hasMenuItems(menuXML)
 					});
 				} else {
 					self.sendSocketNotification("DATA_RESPONSE", {
-						data: []
+						data: [],
+						hasMenuItems: false
 					});
 				}
 			}
 		);
 	}
 });
+
+const hasMenuItems = (feedXML) => {
+    const parser = new XMLParser();
+    const jObj = parser.parse(feedXML);
+    try {
+        Array.from(jObj.rss.channel.item);
+        return true;
+    } catch (err) {
+        return false;
+    }
+};
 
 const parseMenuItemsFromXML = (feedXML) => {
     const parser = new XMLParser();
