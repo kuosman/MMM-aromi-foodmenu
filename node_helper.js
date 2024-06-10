@@ -5,66 +5,71 @@ var NodeHelper = require("node_helper");
 const { XMLParser } = require("fast-xml-parser");
 
 module.exports = NodeHelper.create({
-	updateTimer: null,
+    updateTimer: null,
 
-	/**
-	 * Start
-	 *
-	 * @function start start
-	 */
-	start: function () {
-		moment.locale(config.language || "fi");
-	},
+    /**
+     * Start
+     *
+     * @function start start
+     */
+    start: function () {
+        moment.locale(config.language || 'fi');
+    },
 
-	/**
-	 * Socket notification received
-	 *
-	 * @function socketNotificationReceived
-	 * @param {string} notification notification
-	 * @param {object} payload payload
-	 */
-	socketNotificationReceived: function (notification, payload) {
-		if (notification === "GET_DATA") {
-			this.fetchData(payload.url);
-		}
-	},
+    /**
+     * Socket notification received
+     *
+     * @function socketNotificationReceived
+     * @param {string} notification notification
+     * @param {object} payload payload
+     */
+    socketNotificationReceived: function (notification, payload) {
+        if (notification === 'GET_DATA') {
+            this.fetchData(payload.config.url, payload.identifier);
+        }
+    },
 
-	/**
-	 * Fetches data
-	 *
-	 * @function fetchData
-	 * @param {string} url url
-	 */
-	fetchData(url) {
-		var self = this;
+    /**
+     * Fetches data
+     *
+     * @function fetchData
+     * @param {string} url url
+     * @param {string} identifier identifier
+     */
+    fetchData(url, identifier) {
+        var self = this;
 
-		request(
-			{
-				url: url,
-				method: "GET"
-			},
-			function (error, response) {
-				if (!error && response.statusCode === 200) {
-					const menuXML = response.body;
-
-					self.sendSocketNotification("DATA_RESPONSE", {
-						data: hasMenuItems(menuXML) ? parseMenuItemsFromXML(menuXML) : [],
-						hasMenuItems: hasMenuItems(menuXML)
-					});
-				} else {
-					self.sendSocketNotification("DATA_RESPONSE", {
-						data: [],
-						hasMenuItems: false
-					});
-				}
-			}
-		);
-	}
+        request(
+            {
+                url: url,
+                method: 'GET',
+            },
+            function (error, response) {
+                if (!error && response.statusCode === 200) {
+                    const menuXML = response.body;
+                    self.sendSocketNotification('DATA_RESPONSE', {
+                        data: hasMenuItems(menuXML)
+                            ? parseMenuItemsFromXML(menuXML)
+                            : [],
+                        hasMenuItems: hasMenuItems(menuXML),
+                        identifier: identifier,
+                    });
+                } else {
+                    self.sendSocketNotification('DATA_RESPONSE', {
+                        data: [],
+                        hasMenuItems: false,
+                        identifier: identifier,
+                    });
+                }
+            }
+        );
+    },
 });
 
 const hasMenuItems = (feedXML) => {
     const parser = new XMLParser();
     const jObj = parser.parse(feedXML);
+
     try {
         Array.from(jObj.rss.channel.item);
         return true;

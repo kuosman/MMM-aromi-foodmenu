@@ -51,7 +51,6 @@ Module.register('MMM-aromi-foodmenu', {
         const self = this;
         var wrapper = document.createElement('div');
 
-
         if (self.menuData === null) {
             wrapper.innerHTML = this.translate('loading');
             wrapper.className = 'aromi-foodmenu row dimmed light small';
@@ -103,7 +102,10 @@ Module.register('MMM-aromi-foodmenu', {
     scheduleNextFetch: function () {
         var self = this;
         if (self.menuData === null) {
-            self.sendSocketNotification('GET_DATA', self.config);
+            self.sendSocketNotification('GET_DATA', {
+                config: self.config,
+                identifier: self.data.header,
+            });
         } else {
             clearTimeout(self.updateTimer);
             const delay =
@@ -111,7 +113,10 @@ Module.register('MMM-aromi-foodmenu', {
                     ? 1000 * 60
                     : self.config.updateInterval;
             self.updateTimer = setTimeout(function () {
-                self.sendSocketNotification('GET_DATA', self.config);
+                self.sendSocketNotification('GET_DATA', {
+                    config: self.config,
+                    identifier: self.data.header,
+                });
             }, delay);
         }
     },
@@ -136,13 +141,16 @@ Module.register('MMM-aromi-foodmenu', {
      * @param {object} payload payload
      */
     socketNotificationReceived: function (notification, payload) {
+        var self = this;
         switch (notification) {
             case 'DATA_RESPONSE':
-                this.scheduleNextFetch();
-                this.menuData = payload.data;
-                this.hasMenuItems = payload.hasMenuItems;
-                this.updateDom();
-                break;
+                if (payload.identifier === self.data.header) {
+                    self.scheduleNextFetch();
+                    self.menuData = payload.data;
+                    self.hasMenuItems = payload.hasMenuItems;
+                    self.updateDom();
+                    break;
+                }
         }
     },
 });
