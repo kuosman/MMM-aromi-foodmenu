@@ -51,14 +51,15 @@ Module.register('MMM-aromi-foodmenu', {
         const self = this;
         var wrapper = document.createElement('div');
 
-        if (self.menuData.length === 0 && !self.hasMenuItems) {
-            wrapper.innerHTML = '-';
+
+        if (self.menuData === null) {
+            wrapper.innerHTML = this.translate('loading');
             wrapper.className = 'aromi-foodmenu row dimmed light small';
             return wrapper;
         }
 
-        if (self.menuData === null) {
-            wrapper.innerHTML = this.translate('loading');
+        if (self.menuData.length === 0 && !self.hasMenuItems) {
+            wrapper.innerHTML = '-';
             wrapper.className = 'aromi-foodmenu row dimmed light small';
             return wrapper;
         }
