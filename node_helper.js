@@ -46,7 +46,6 @@ module.exports = NodeHelper.create({
 			function (error, response) {
 				if (!error && response.statusCode === 200) {
 					const menuXML = response.body;
-					const parsedMenuItems = ;
 
 					self.sendSocketNotification("DATA_RESPONSE", {
 						data: hasMenuItems(menuXML) ? parseMenuItemsFromXML(menuXML) : [],
