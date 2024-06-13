@@ -18,6 +18,7 @@ Module.register('MMM-aromi-foodmenu', {
     menuData: null,
     updateTimer: null,
     hasMenuItems: false,
+    identifier: new UUID(),
 
     /**
      * Gets styles
@@ -102,9 +103,9 @@ Module.register('MMM-aromi-foodmenu', {
     scheduleNextFetch: function () {
         var self = this;
         if (self.menuData === null) {
-            self.sendSocketNotification('GET_DATA', {
+            self.sendSocketNotification('MMM_AROMI_FOODMENU_GET_DATA', {
                 config: self.config,
-                identifier: self.data.header,
+                identifier: self.identifier,
             });
         } else {
             clearTimeout(self.updateTimer);
@@ -113,9 +114,9 @@ Module.register('MMM-aromi-foodmenu', {
                     ? 1000 * 60
                     : self.config.updateInterval;
             self.updateTimer = setTimeout(function () {
-                self.sendSocketNotification('GET_DATA', {
+                self.sendSocketNotification('MMM_AROMI_FOODMENU_GET_DATA', {
                     config: self.config,
-                    identifier: self.data.header,
+                    identifier: self.identifier,
                 });
             }, delay);
         }
@@ -143,8 +144,8 @@ Module.register('MMM-aromi-foodmenu', {
     socketNotificationReceived: function (notification, payload) {
         var self = this;
         switch (notification) {
-            case 'DATA_RESPONSE':
-                if (payload.identifier === self.data.header) {
+            case 'MMM_AROMI_FOODMENU_DATA_RESPONSE':
+                if (payload.identifier === self.identifier) {
                     self.scheduleNextFetch();
                     self.menuData = payload.data;
                     self.hasMenuItems = payload.hasMenuItems;

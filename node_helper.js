@@ -24,7 +24,7 @@ module.exports = NodeHelper.create({
      * @param {object} payload payload
      */
     socketNotificationReceived: function (notification, payload) {
-        if (notification === 'GET_DATA') {
+        if (notification === 'MMM_AROMI_FOODMENU_GET_DATA') {
             this.fetchData(payload.config.url, payload.identifier);
         }
     },
@@ -47,7 +47,7 @@ module.exports = NodeHelper.create({
             function (error, response) {
                 if (!error && response.statusCode === 200) {
                     const menuXML = response.body;
-                    self.sendSocketNotification('DATA_RESPONSE', {
+                    self.sendSocketNotification('MMM_AROMI_FOODMENU_DATA_RESPONSE', {
                         data: hasMenuItems(menuXML)
                             ? parseMenuItemsFromXML(menuXML)
                             : [],
@@ -55,11 +55,14 @@ module.exports = NodeHelper.create({
                         identifier: identifier,
                     });
                 } else {
-                    self.sendSocketNotification('DATA_RESPONSE', {
-                        data: [],
-                        hasMenuItems: false,
-                        identifier: identifier,
-                    });
+                    self.sendSocketNotification(
+                        'MMM_AROMI_FOODMENU_DATA_RESPONSE',
+                        {
+                            data: [],
+                            hasMenuItems: false,
+                            identifier: identifier,
+                        }
+                    );
                 }
             }
         );
