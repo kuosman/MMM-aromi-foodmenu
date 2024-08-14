@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid';
+
 /* global Module */
 
 /*
@@ -18,7 +20,7 @@ Module.register('MMM-aromi-foodmenu', {
     menuData: null,
     updateTimer: null,
     hasMenuItems: false,
-    identifier: new UUID(),
+    identifier: uuidv4(),
 
     /**
      * Gets styles
