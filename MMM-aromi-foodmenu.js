@@ -20,7 +20,7 @@ Module.register('MMM-aromi-foodmenu', {
     menuData: null,
     updateTimer: null,
     hasMenuItems: false,
-    identifier: uuidv4(),
+    identifier: Date.now(),
 
     /**
      * Gets styles
