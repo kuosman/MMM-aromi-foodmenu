@@ -4,6 +4,9 @@ div.aromi-foodmenu {
 div.aromi-foodmenu div.menu {
   padding-bottom: 16px;
 }
+div.aromi-foodmenu div.menu.large {
+  font-size: 32px;
+}
 div.aromi-foodmenu div.description.vegan {
   padding-bottom: 8px;
 }/*# sourceMappingURL=styles.css.map */

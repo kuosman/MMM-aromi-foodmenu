@@ -13,6 +13,7 @@ Module.register('MMM-aromi-foodmenu', {
     defaults: {
         url: 'https://aromimenu.cgisaas.fi/VantaaAromieMenus/FI/Default/Vantti/VierumakiKO/Rss.aspx?Id=9594d033-482f-4f9d-b369-307fa37223db&DateMode=1',
         updateInterval: 60 * 1000 * 60, // every hour
+        large: false,
     },
 
     menuData: null,
@@ -76,7 +77,7 @@ Module.register('MMM-aromi-foodmenu', {
             const noDescription = `<div class="no-description">-</div>`;
 
             var menuHTML = document.createElement('div');
-            menuHTML.className = 'menu';
+            menuHTML.className = self.config.large ? 'menu large' : 'menu';
             if (
                 menu.description[0] === menu.description[1] &&
                 menu.description[1]
