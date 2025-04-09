@@ -97,12 +97,20 @@ const parseMenuItemsFromXML = (feedXML) => {
     feedXML = feedXML.replace(/\s*\(.*?\)\s*/g, '');
 
     const jObj = parser.parse(feedXML);
-    const parsedNewsItems = Array.from(jObj.rss.channel.item).map(
-        (itemNode) => ({
-            title: itemNode.title || '',
-            description: itemNode.description.split('<br><br>') || [],
-        })
-    );
+    let parsedNewsItems = [];
+    if (Array.isArray(jObj.rss.channel.item)) {
+        parsedNewsItems = Array.from(jObj.rss.channel.item).map(
+            (itemNode) => ({
+                title: itemNode.title || '',
+                description: itemNode.description.split('<br><br>') || [],
+            })
+        );
+    } else {
+        parsedNewsItems = [{
+            title: jObj.rss.channel.item.title || '',
+            description: jObj.rss.channel.item.description.split('<br><br>') || [],
+        }];
+    }
 
     return parsedNewsItems;
 };
