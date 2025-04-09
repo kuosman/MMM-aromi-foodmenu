@@ -68,25 +68,20 @@ Module.register('MMM-aromi-foodmenu', {
 
         self.menuData.forEach((menu) => {
             const date = `<div class="date bright">${menu.title.toUpperCase()}</div>`;
-            const descriptionVegan = `<div class="description vegan">${menu.description[0]}</div>`;
-            const description = `<div class="description">${
-                menu.description.length === 2
-                    ? menu.description[1]
-                    : menu.description[0]
-            }</div>`;
+            const description = document.createElement('div');
+            description.className = 'description';
+            //`<div class="description"></div>`;
             const noDescription = `<div class="no-description">-</div>`;
 
             var menuHTML = document.createElement('div');
             menuHTML.className = self.config.large ? 'menu large' : 'menu';
-            if (
-                menu.description[0] === menu.description[1] &&
-                menu.description[1]
-            ) {
-                menuHTML.innerHTML = date + description;
-            } else if (menu.description[0] && menu.description[1]) {
-                menuHTML.innerHTML = date + descriptionVegan + description;
-            } else if (menu.description[0]) {
-                menuHTML.innerHTML = date + description;
+            if (menu.description.length > 0) {
+                menu.description.forEach((d) => {
+                    const desc = document.createElement('div');
+                    desc.innerHTML = d;
+                    description.appendChild(desc);
+                });
+                menuHTML.innerHTML = date + description.innerHTML;
             } else {
                 menuHTML.innerHTML = date + noDescription;
             }

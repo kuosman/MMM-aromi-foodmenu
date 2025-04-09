@@ -87,9 +87,11 @@ const parseMenuItemsFromXML = (feedXML) => {
     // &nbsp; caused parse error. &amp;nbsp; encodes right in resulting html
     feedXML = feedXML.replaceAll('&nbsp;', '&amp;nbsp;');
 
+    feedXML = feedXML.replaceAll(':', ': ');
+
     // Remove lounas texts
-    feedXML = feedXML.replaceAll('Kasvislounas:', '');
-    feedXML = feedXML.replaceAll('Lounas:', '');
+    //feedXML = feedXML.replaceAll('Kasvislounas:', '');
+    //feedXML = feedXML.replaceAll('Lounas:', '');
 
     // Remove parentheses and remove text between parentheses
     feedXML = feedXML.replace(/\s*\(.*?\)\s*/g, '');
