@@ -142,7 +142,6 @@ Module.register('MMM-aromi-foodmenu', {
         switch (notification) {
             case 'MMM_AROMI_FOODMENU_DATA_RESPONSE':
                 if (payload.identifier === self.identifier) {
-                    console.log(payload);
                     self.scheduleNextFetch();
                     self.menuData = payload.data;
                     self.hasMenuItems = payload.hasMenuItems;
