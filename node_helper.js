@@ -25,7 +25,7 @@ module.exports = NodeHelper.create({
      */
     socketNotificationReceived: function (notification, payload) {
         if (notification === 'MMM_AROMI_FOODMENU_GET_DATA') {
-            this.fetchData(payload.config.url, payload.identifier);
+            this.fetchData(payload.config.url, payload.config.nextWeekUrl, payload.identifier);
         }
     },
 
@@ -34,14 +34,24 @@ module.exports = NodeHelper.create({
      *
      * @function fetchData
      * @param {string} url url
+     * @param {string} nextWeekUrl next week url
      * @param {string} identifier identifier
      */
-    fetchData(url, identifier) {
+    fetchData(url, nextWeekUrl, identifier) {
         var self = this;
+
+        const now = moment().tz("Europe/Helsinki");
+
+        const isWeekend = now.day() === 0 || now.day() === 6;
+        const isFridayAfter15 = now.day() === 5 && now.hour() >= 15;
+
+        const isNextWeek = isWeekend || isFridayAfter15;
+
+        const rssUrl = isNextWeek && nextWeekUrl ? nextWeekUrl : url;
 
         request(
             {
-                url: url,
+                url: rssUrl,
                 method: 'GET',
             },
             function (error, response) {
