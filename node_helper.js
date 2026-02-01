@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-var moment = require("moment");
+var moment = require("moment-timezone");
 const request = require("request");
 var NodeHelper = require("node_helper");
 const { XMLParser } = require("fast-xml-parser");

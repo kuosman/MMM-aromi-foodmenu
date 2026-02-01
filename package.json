@@ -23,6 +23,7 @@
     "dependencies": {
         "fast-xml-parser": "^4.3.6",
         "moment": "latest",
+        "moment-timezone": "^0.6.0",
         "request": "latest"
     }
 }
