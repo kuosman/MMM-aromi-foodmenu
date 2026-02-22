@@ -12,7 +12,7 @@ Module.register('MMM-aromi-foodmenu', {
     // Default module config.
     defaults: {
         url: 'https://aromimenu.cgisaas.fi/VantaaAromieMenus/FI/Default/Vantti/KiirunatiePK/api/Common/Restaurant/GetRssFeed/2a89e16d-5b31-4463-9fd9-aeac9c4b610a/0',
-		nextWeekUrl: 'https://aromimenu.cgisaas.fi/VantaaAromieMenus/FI/Default/Vantti/VierumakiKO/api/Common/Restaurant/GetRssFeed/9594d033-482f-4f9d-b369-307fa37223db/2',
+		nextWeekUrl: null,
         updateInterval: 60 * 1000 * 60, // every hour
         large: false,
     },

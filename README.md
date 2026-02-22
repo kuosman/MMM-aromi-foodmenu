@@ -35,5 +35,5 @@ The following properties can be configured:
 | -----------------------------	| --------------------------- | -----------
 | `updateInterval`				| `3600000`                     | Update interval in milliseconds. Limited minumum value for 1 minute becau60*1000se API blocks faster updates.
 | `url`						    | `https://aromimenu.cgisaas.fi/VantaaAromieMenus/FI/Default/Vantti/KiirunatiePK/api/Common/Restaurant/GetRssFeed/2a89e16d-5b31-4463-9fd9-aeac9c4b610a/0` | Aromi foodmenu RSS url
-| `nextWeekUrl`					| `https://aromimenu.cgisaas.fi/VantaaAromieMenus/FI/Default/Vantti/VierumakiKO/api/Common/Restaurant/GetRssFeed/9594d033-482f-4f9d-b369-307fa37223db/2` | Aromi foodmene next week RSS url (not ncessary)
+| `nextWeekUrl`					| null | Aromi foodmene next week RSS url (not ncessary)
 | `large`						| `false` 							|  Need to use larger experience ?
